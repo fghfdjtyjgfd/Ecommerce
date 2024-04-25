@@ -1,17 +1,16 @@
 package routes
 
 import (
-	"github.com/gofiber/fiber/v2"
+	"github.com/gin-gonic/gin"
 
 	"ecommerce/controllers"
 )
 
-func NewRouter(c *fiber.Ctx) {
-	app := fiber.New()
+func UserRoutes(incomingRoutes *gin.Engine) {
 
-	app.Post("/user/signup", controllers.Signup)
-	app.Post("/user/login", controllers.Login)
-	app.Post("/admin/addproduct", controllers.ProductViewerAdmin)
-	app.Get("/user/viewproduct", controllers.SearchProduct)
-	app.Get("/user/search", controllers.SearchProductByQuery)
+	incomingRoutes.POST("/user/signup", controllers.Signup())
+	incomingRoutes.POST("/user/login", controllers.Login())
+	incomingRoutes.POST("/admin/addproduct", controllers.ProductViewerAdmin())
+	incomingRoutes.GET("/user/viewproduct", controllers.SearchProduct())
+	incomingRoutes.GET("/user/search", controllers.SearchProductByQuery())
 }

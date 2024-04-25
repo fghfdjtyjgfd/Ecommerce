@@ -1,13 +1,15 @@
 package main
 
 import (
+	"log"
 	"os"
 
-	"github.com/gofiber/fiber/v2"
+	"github.com/gin-gonic/gin"
 
-	"ecommerce/database"
 	"ecommerce/controllers"
+	"ecommerce/database"
 	"ecommerce/middleware"
+	"ecommerce/routes"
 )
 
 func main() {
@@ -16,15 +18,19 @@ func main() {
 		port = "8000"
 	}
 
-	apps := controllers.NewApplication(database.ProductData(database.Client, "Products"), database.UserData(database.Client, "Users"))
+	app := controllers.NewApplication(database.ProductData(database.Client, "Products"), database.UserData(database.Client, "Users"))
 
-	app := fiber.New()
-	app.Use(middleware.Authentication)
+	router := gin.New()
+	router.Use(gin.Logger())
 
-	app.Get("/addtocart", app.AddToCart)
-	app.Get("/removeitem", app.RemoveItem)
-	app.Get("/cartcheckout", app.CartCheckOut)
-	app.Get("/instantbuy", app.InstantBuy)
+	routes.UserRoutes(router)
 
-	app.Listen(":" + port)
+	router.Use(middleware.Authentication())
+
+	router.GET("/addtocart", app.AddToCart)
+	router.GET("/removeitem", app.RemoveItem)
+	router.GET("/cartcheckout", app.CartCheckOut)
+	router.GET("/instantbuy", app.InstantBuy)
+
+	log.Fatal(router.Run(":" + port))
 }

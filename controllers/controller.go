@@ -59,7 +59,7 @@ func Signup() gin.HandlerFunc {
 			return
 		}
 
-		count, err := UserCollection.CountDocument(ctx, bson.M{"email": user.Email})
+		count, err := UserCollection.CountDocuments(ctx, bson.M{"email": user.Email})
 		if err != nil {
 			log.Panic(err)
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err})
@@ -69,7 +69,7 @@ func Signup() gin.HandlerFunc {
 			c.JSON(http.StatusBadRequest, gin.H{"error": "user already exist"})
 		}
 
-		count, err = UserCollection.CountDocument(ctx, bson.M{"phone": user.Phone})
+		count, err = UserCollection.CountDocuments(ctx, bson.M{"phone": user.Phone})
 
 		defer cancel()
 		if err != nil {

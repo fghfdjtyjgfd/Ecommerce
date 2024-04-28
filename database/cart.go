@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"log"
+	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -53,10 +54,47 @@ func AddProductToCart(ctx context.Context, prodCollection, userCollection *mongo
 }
 
 func RemoveCartItem(ctx context.Context, prodCollection, userCollection *mongo.Collection, productID primitive.ObjectID, userID string) error {
-	
+	id, err := primitive.ObjectIDFromHex(userID)
+	if err != nil {
+		log.Println(err)
+		return ErrUserIdIsNotValid
+	}
+
+	filter := bson.D{primitive.E{Key: "_id", Value: id}}
+	update := bson.M{"$pull": bson.M{"userCart": bson.M{"_id": productID}}}
+
+	_, err = userCollection.UpdateMany(ctx, filter, update)
+	if err != nil {
+		return ErrCantUpdateUser
+	}
+	return nil
+
 }
 
-func BuyItemFromCart() {
+func BuyItemFromCart(ctx context.Context, userCollection *mongo.Collection, userID string) error {
+	id, err := primitive.ObjectIDFromHex(userID)
+	if err != nil {
+		log.Println(err)
+		return ErrUserIdIsNotValid
+	}
+
+	var getCartItems models.User
+	var orderCart models.Order
+
+	orderCart.Order_ID = primitive.NewObjectID()
+	orderCart.Ordered_at = time.Now()
+	orderCart.Order_cart = make([]models.ProductUser, 0)
+	orderCart.Payment_method.COD = true
+
+	unwind := bson.D{{Key: "$unwind", Value: bson.D{primitive.E{Key: "path", Value: "$userCart"}}}}
+	group := bson.D{{Key: "$group", Value: bson.D{primitive.E{Key: "_id", Value: "$_id"}, 
+					{Key: "total", Value: bson.D{primitive.E{Key: "$sum", Value: "$userCart.price"}}}}}}
+	
+	currentResult, err := userCollection.Aggregate(ctx, mongo.Pipeline{unwind, group})
+	ctx.Done()
+	if err != nil {
+		panic(err)
+	}
 
 }
 

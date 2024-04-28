@@ -90,6 +90,9 @@ func EditHomeAddress() gin.HandlerFunc {
 		}
 
 		var editaddress models.Address
+		if err := c.BindJSON(&editaddress); err != nil {
+			c.IndentedJSON(http.StatusBadRequest, err.Error())
+		}
 
 		var ctx, cancel = context.WithTimeout(context.Background(), time.Second*100)
 		defer cancel()

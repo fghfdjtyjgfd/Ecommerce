@@ -132,9 +132,6 @@ func GetItemFromCart() gin.HandlerFunc {
 			c.IndentedJSON(200, filledcart.UserCart)
 		}
 		ctx.Done()
-
-
-
 	}
 }
 

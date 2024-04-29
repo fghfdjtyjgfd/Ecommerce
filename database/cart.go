@@ -120,7 +120,7 @@ func BuyItemFromCart(ctx context.Context, userCollection *mongo.Collection, user
 		log.Panicln(err)
 	}
 
-	userCollection.FindOne(ctx, bson.D{primitive.E{Key: "_id", Value: id}}).Decode(&getCartItems)
+	err = userCollection.FindOne(ctx, bson.D{primitive.E{Key: "_id", Value: id}}).Decode(&getCartItems)
 	if err != nil {
 		log.Panicln(err)
 	}

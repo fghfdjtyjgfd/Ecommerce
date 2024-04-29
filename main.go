@@ -28,7 +28,7 @@ func main() {
 
 	router.GET("/addtocart", app.AddToCart())
 	router.GET("/removeitem", app.RemoveItem())
-	router.GET("/cartcheckout", app.BuyFromCart())// there is a error occur
+	router.GET("/cartcheckout", app.BuyFromCart())
 	router.GET("/instantbuy", app.InstantBuy())
 	router.GET("/viewcart", app.GetItemFromCart())
 

@@ -100,7 +100,7 @@ func BuyItemFromCart(ctx context.Context, userCollection *mongo.Collection, user
 	}
 
 	var getUserCart []bson.M
-	if err = currentResult.All(ctx, &getCartItems); err != nil {
+	if err = currentResult.All(ctx, &getUserCart); err != nil {
 		panic(err)
 	}
 

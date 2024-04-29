@@ -18,9 +18,9 @@ type User struct {
 	Created_At      time.Time          `json:"created_at"`
 	Updated_At      time.Time          `json:"updated_at"`
 	UserID          string             `json:"user_id"`
-	UserCart        []ProductUser      `json:"usercart" bson:"usercart"`
+	UserCart        []ProductUser      `json:"userCart" bson:"userCart"`
 	Address_details []Address          `json:"address" bson:"address"`
-	Order_status    []Order            `json:"order" bson:"order"`
+	Order_status    []Order            `json:"orders" bson:"orders"`
 }
 
 type Product struct {

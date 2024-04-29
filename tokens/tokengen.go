@@ -6,7 +6,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/bytedance/sonic/option"
 	jwt "github.com/dgrijalva/jwt-go"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -72,8 +71,8 @@ func ValidateToken(signedToken string) (claims *SignedDetail, msg string) {
 		msg = "token is invalid"
 		return
 	}
-	
-	if claims.ExpiresAt < time.Now().Local().Unix(){
+
+	if claims.ExpiresAt < time.Now().Local().Unix() {
 		msg = "token is already expired"
 		return
 	}

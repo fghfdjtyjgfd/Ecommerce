@@ -14,6 +14,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"golang.org/x/crypto/bcrypt"
 
+	generate "ecommerce/tokens"
 	"ecommerce/database"
 	"ecommerce/models"
 )
@@ -111,6 +112,8 @@ func Login() gin.HandlerFunc {
 		var ctx, cancel = context.WithTimeout(context.Background(), time.Second*100)
 		defer cancel()
 
+		var founduser models.User
+
 		var user models.User
 		if err := c.BindJSON(&user); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err})
@@ -137,14 +140,30 @@ func Login() gin.HandlerFunc {
 		token, refreshToken, _ := generate.TokenGenerator(*founduser.Email, *founduser.First_name, *founduser.Last_name, founduser.UserID)
 		defer cancel()
 
-		generate.UpdateAllToken(token, refreshToken, founduser.UserID)
+		generate.UpdateAllTokens(token, refreshToken, founduser.UserID)
 
 		c.JSON(http.StatusFound, founduser)
 	}
 }
 
 func ProductViewerAdmin() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), time.Second*100)
+		var products models.Product
+		defer cancel()
 
+		if err := c.BindJSON(&products); err != nil {
+			c.JSON(http.StatusBadRequest, gin.H{"Error": err.Error()})
+		}
+		products.Product_ID = primitive.NewObjectID()
+		_, anyerr := ProductCollection.InsertOne(ctx, products)
+		if anyerr != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"Error": "not inserted"})
+			return
+		}
+		defer cancel()
+		c.JSON(http.StatusOK, "successfully added")
+	}
 }
 
 func SearchProduct() gin.HandlerFunc {

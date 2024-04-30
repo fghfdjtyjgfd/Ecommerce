@@ -14,7 +14,7 @@ import (
 	"ecommerce/models"
 )
 
-func AddAddress() gin.HandlerFunc {
+func (app *Application) AddAddress() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		user_id := c.Query("id")
 		if user_id == "" {
@@ -49,7 +49,7 @@ func AddAddress() gin.HandlerFunc {
 		}
 
 		var addressInfo []bson.M
-		if err := pointcursor.All(ctx, addressInfo); err != nil {
+		if err := pointcursor.All(ctx, &addressInfo); err != nil {
 			panic(err)
 		}
 
@@ -66,14 +66,16 @@ func AddAddress() gin.HandlerFunc {
 				fmt.Println(err)
 			}
 		} else {
-			c.IndentedJSON(400, "Not allowed")
+			c.IndentedJSON(400, "Not allowed to add address more than 2")
+			return
 		}
 		defer cancel()
 		ctx.Done()
+		c.IndentedJSON(200, "Successfully added address")
 	}
 }
 
-func EditHomeAddress() gin.HandlerFunc {
+func (app *Application) EditHomeAddress() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		user_id := c.Query("id")
 
@@ -113,13 +115,13 @@ func EditHomeAddress() gin.HandlerFunc {
 	}
 }
 
-func EditWorkAddress() gin.HandlerFunc {
+func (app *Application) EditWorkAddress() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		user_id := c.Query("id")
 
 		if user_id == "" {
 			c.Header("Content-Type", "application/json")
-			c.JSON(http.StatusNotFound, gin.H{"Error": "Invalid"})
+			c.JSON(http.StatusNotFound, gin.H{"Error": "Invalid user id"})
 			c.Abort()
 			return
 		}
@@ -154,10 +156,10 @@ func EditWorkAddress() gin.HandlerFunc {
 	}
 }
 
-func DeleteAddress() gin.HandlerFunc {
+func (app *Application) DeleteAddress() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		user_id := c.Query("id")
-		if user_id != "" {
+		if user_id == "" {
 			c.Header("Content-Type", "application/json")
 			c.JSON(http.StatusNotFound, gin.H{"Error": "invalid search index"})
 			c.Abort()
@@ -182,6 +184,6 @@ func DeleteAddress() gin.HandlerFunc {
 
 		defer cancel()
 		ctx.Done()
-		c.IndentedJSON(200, "Successfully deleted")
+		c.IndentedJSON(200, "Successfully deleted address")
 	}
 }

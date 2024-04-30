@@ -32,5 +32,10 @@ func main() {
 	router.GET("/instantbuy", app.InstantBuy())
 	router.GET("/viewcart", app.GetItemFromCart())
 
+	router.POST("/addaddress", app.AddAddress())
+	router.PUT("/edithomeaddress", app.EditHomeAddress())
+	router.PUT("/editworkaddress", app.EditWorkAddress())
+	router.DELETE("/deleteaddress", app.DeleteAddress())
+
 	log.Fatal(router.Run(":" + port))
 }

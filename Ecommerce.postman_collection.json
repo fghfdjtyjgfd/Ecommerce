@@ -1,0 +1,470 @@
+{
+	"info": {
+		"_postman_id": "2462cb16-4163-400e-9ea0-5df449f58af3",
+		"name": "Ecommerce",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33676018"
+	},
+	"item": [
+		{
+			"name": "Signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"first_name\": \"testFirstname\",\n    \"last_name\": \"testLastname\",\n    \"password\": \"123456\",\n    \"email\": \"test@gmail.com\",\n    \"phone\": \"0812345678\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/signup",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"test@gmail.com\",\n    \"password\": \"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddproductToDB",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"product_name\": \"KKKKK\",\n    \"price\": 99,\n    \"rating\": 9,\n    \"image\": \"fghfd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/admin/addproduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"admin",
+						"addproduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewAllproduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/user/viewproduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"viewproduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SearchProductByQuery",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/user/search?name=QQQQQ",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"user",
+						"search"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "QQQQQ"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddToCart",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiRmlyc3RfbmFtZSI6InRlc3RGaXJzdG5hbWUiLCJMYXN0X25hbWUiOiJ0ZXN0TGFzdG5hbWUiLCJVaWQiOiI2NjJmNjc3ODhiNWY2MGQzZmIyY2JjMzgiLCJleHAiOjE3MTQ0NjkxMTJ9.WqZT-NXYHt4iwytzn0MhwXVIFVq6HfUhmitk-EtiHpw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/addtocart?id=662f6b008b5f60d3fb2cbc39&userID=662f67788b5f60d3fb2cbc38",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"addtocart"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "662f6b008b5f60d3fb2cbc39"
+						},
+						{
+							"key": "userID",
+							"value": "662f67788b5f60d3fb2cbc38"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RemoveItemFromCart",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiRmlyc3RfbmFtZSI6InRlc3RGaXJzdG5hbWUiLCJMYXN0X25hbWUiOiJ0ZXN0TGFzdG5hbWUiLCJVaWQiOiI2NjJmNjc3ODhiNWY2MGQzZmIyY2JjMzgiLCJleHAiOjE3MTQ0NjkxMTJ9.WqZT-NXYHt4iwytzn0MhwXVIFVq6HfUhmitk-EtiHpw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/removeitem?id=662f6b008b5f60d3fb2cbc39&userID=662f67788b5f60d3fb2cbc38",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"removeitem"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "662f6b008b5f60d3fb2cbc39"
+						},
+						{
+							"key": "userID",
+							"value": "662f67788b5f60d3fb2cbc38"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BuyItemFromCart",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiRmlyc3RfbmFtZSI6InRlc3RGaXJzdG5hbWUiLCJMYXN0X25hbWUiOiJ0ZXN0TGFzdG5hbWUiLCJVaWQiOiI2NjJmODE2ODM2ZTdiMjgzNjFhNDYyMjAiLCJleHAiOjE3MTQ0NzU3NTJ9.WiiziRTR5gks7r1vUm6jhuq9OqW_pO4njZJHKDJWpo8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/cartcheckout?id=662f816836e7b28361a46220",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"cartcheckout"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "662f816836e7b28361a46220"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "InstantBuy",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiRmlyc3RfbmFtZSI6InRlc3RGaXJzdG5hbWUiLCJMYXN0X25hbWUiOiJ0ZXN0TGFzdG5hbWUiLCJVaWQiOiI2NjJmNjc3ODhiNWY2MGQzZmIyY2JjMzgiLCJleHAiOjE3MTQ0NjkxMTJ9.WqZT-NXYHt4iwytzn0MhwXVIFVq6HfUhmitk-EtiHpw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/instantbuy?id=662f6b008b5f60d3fb2cbc39&userID=662f67788b5f60d3fb2cbc38",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"instantbuy"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "662f6b008b5f60d3fb2cbc39"
+						},
+						{
+							"key": "userID",
+							"value": "662f67788b5f60d3fb2cbc38"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewCart",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiRmlyc3RfbmFtZSI6InRlc3RGaXJzdG5hbWUiLCJMYXN0X25hbWUiOiJ0ZXN0TGFzdG5hbWUiLCJVaWQiOiI2NjJmNjc3ODhiNWY2MGQzZmIyY2JjMzgiLCJleHAiOjE3MTQ0NjkxMTJ9.WqZT-NXYHt4iwytzn0MhwXVIFVq6HfUhmitk-EtiHpw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8000/viewcart?id=662f67788b5f60d3fb2cbc38",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"viewcart"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "662f67788b5f60d3fb2cbc38"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AddAddress",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiRmlyc3RfbmFtZSI6InRlc3RGaXJzdG5hbWUiLCJMYXN0X25hbWUiOiJ0ZXN0TGFzdG5hbWUiLCJVaWQiOiI2NjJmODE2ODM2ZTdiMjgzNjFhNDYyMjAiLCJleHAiOjE3MTQ0NzU3NTJ9.WiiziRTR5gks7r1vUm6jhuq9OqW_pO4njZJHKDJWpo8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"house_name\": \"37\",\n    \"street_name\": \"redfern st\",\n    \"city_name\": \"morningside\",\n    \"pin_code\": \"4170\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/addaddress?id=662f816836e7b28361a46220",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"addaddress"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "662f816836e7b28361a46220"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditHomeAddress",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiRmlyc3RfbmFtZSI6InRlc3RGaXJzdG5hbWUiLCJMYXN0X25hbWUiOiJ0ZXN0TGFzdG5hbWUiLCJVaWQiOiI2NjJmODE2ODM2ZTdiMjgzNjFhNDYyMjAiLCJleHAiOjE3MTQ0NzU3NTJ9.WiiziRTR5gks7r1vUm6jhuq9OqW_pO4njZJHKDJWpo8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"house_name\": \"westfield\",\n    \"street_name\": \"gympie st\",\n    \"city_name\": \"chermside\",\n    \"pin_code\": \"4032\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/edithomeaddress?id=662f816836e7b28361a46220",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"edithomeaddress"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "662f816836e7b28361a46220"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EditWorkAddress",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiRmlyc3RfbmFtZSI6InRlc3RGaXJzdG5hbWUiLCJMYXN0X25hbWUiOiJ0ZXN0TGFzdG5hbWUiLCJVaWQiOiI2NjJmODE2ODM2ZTdiMjgzNjFhNDYyMjAiLCJleHAiOjE3MTQ0NzU3NTJ9.WiiziRTR5gks7r1vUm6jhuq9OqW_pO4njZJHKDJWpo8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"house_name\": \"3/119\",\n    \"street_name\": \"charlotte st\",\n    \"city_name\": \"brisbane city\",\n    \"pin_code\": \"4000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/editworkaddress?id=662f816836e7b28361a46220",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"editworkaddress"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "662f816836e7b28361a46220"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAddress",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6InRlc3RAZ21haWwuY29tIiwiRmlyc3RfbmFtZSI6InRlc3RGaXJzdG5hbWUiLCJMYXN0X25hbWUiOiJ0ZXN0TGFzdG5hbWUiLCJVaWQiOiI2NjJmODE2ODM2ZTdiMjgzNjFhNDYyMjAiLCJleHAiOjE3MTQ0NzU3NTJ9.WiiziRTR5gks7r1vUm6jhuq9OqW_pO4njZJHKDJWpo8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"house_name\": \"3/119\",\n    \"street_name\": \"charlotte st\",\n    \"city_name\": \"brisbane city\",\n    \"pin_code\": \"4000\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/deleteaddress?id=662f816836e7b28361a46220",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"deleteaddress"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "662f816836e7b28361a46220"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
